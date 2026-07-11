@@ -34,7 +34,7 @@ You have a battery of 24V. The battery has a trace with a square cross section o
 
 ### Capacitors (DO I TRIM THIS DOWN? Do recruits need to know Q = CV or can I just go over actual use case equations [charging, discharging, RC, etc.?]) (maybe include video of charging and discharging on falstad/ltspice)
 
-The next component of relevance is the capacitor. In basic terms, a capacitor is two plates of conductive metal with a voltage difference across them. 
+The next component of relevance is the capacitor. In basic terms, a capacitor is two plates of conductive metal with a insulating material known as a dielectric between then, and a voltage difference across them. 
 
 ![](assets/capacitor_diagram.png)
 
@@ -45,6 +45,8 @@ Q = CV
 $$
 
 Where Q is the max charge on the capacitor at a voltage V, V is the voltage across the capacitor, usually because its been supplied that voltage by a battery, and C is the capacitance of the capacitor itself, this is a constant that is the main characteristic of a capacitor, and has the units of Farads.
+
+Basically, when you apply a voltage difference to a capacitor, it will charge up to a max amount of charge at that voltage and it can discharge that charge as current as well.
 
 In terms of use, a capacitor will draw or output whatever current it needs to reach or maintain a certain voltage across the plates.
 
@@ -101,7 +103,11 @@ On that note, let's talk about datasheets. Datasheets are maybe the most importa
 
 ## Video section: go through a datasheet of current imu that tr uses (ISM SOMETHING) and find example layout and make a schematic based on it.
 
-## Assignment: Design a charlieplexed led expansion for the Nucleo (Maybe Arduino). Use only through hole components. Give recruits the correct spacing of nucleo pins.
+## Assignment:
+
+Design a charlieplexed led expansion schematic for the Nucleo (Maybe Arduino). [EXPAND ON THIS MORE]
+
+![](assets/credits.png)
 
 ##### Notes to self:
 

@@ -76,6 +76,8 @@ For this week we will have a basic assignment which is to make an account on eas
 
 ## Quiz: Basic ~5 question google quiz making sure recruits understand the important parts of this week.
 
+![](assets/credits.png)
+
 ##### Notes to self:
 
 - spec resistors for i2c
@@ -88,7 +90,7 @@ For this week we will have a basic assignment which is to make an account on eas
 
 - run through designing a breakout schematic/board
 
-- run through designing an rectifier schematic/board 
+- run through designing an rectifier schematic/board
 
 - board trace rules
   
@@ -99,8 +101,6 @@ For this week we will have a basic assignment which is to make an account on eas
   - planes, gnd planes and why mentality (guang mini-manifesto)
   
   - rf and high freuqncy rules
-  
-  - week 0.5 if recruits havent taken ece 35
 
 FUTURE: schematic practices (decoupling capacitors, organization, etc.)
 
