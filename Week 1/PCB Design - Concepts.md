@@ -10,6 +10,7 @@ In this section, we will first cover the fundamental mathematical equations that
 
 ### Ohm and Kirchoff's laws
 
+
 1. Ohm's law tells us the relationship between voltage, current, and resistance in a circuit:
 $$\large V = I \cdot R$$
 
@@ -23,11 +24,17 @@ $$\large V_{gained} = V_{lost}$$
 
 $$\large I_{entering} = I_{leaving}$$
 
-We'll cover these topics more in detail in the future.
+At this point, if any of these concepts are confusion for you, please take the time to review the following videos to get familiar with them. These are fundamental concepts you need to design even the most basic circuits.
+
+[KVL KCL](https://www.youtube.com/watch?v=Fes12AtcNP8&list=PLVj6MdQ5TaaU-0PfmpqB7lxdYP-denj2G&index=9)
+
+[OHM's law and basic elements](https://www.youtube.com/watch?v=AAJIeD_U_cU&list=PLVj6MdQ5TaaU-0PfmpqB7lxdYP-denj2G&index=7)
 
 ## Part 2: Circuit Elements 
 
 In this part, we'll cover the basic theory behind passive elements (resistors, capacitors, inductors, diodes) which are commonly used in PCB design.
+
+---
 
 ### Resistors
 
@@ -58,38 +65,51 @@ For the two-resistor case, that simplifies to a form you'll end up using constan
 
 $$\large R_{eq} = \frac{R_1 R_2}{R_1 + R_2}$$
 
-While we're here, you'll also hear the term impedance ($Z$) thrown around a lot. Impedance is what resistance generalizes to in AC circuits. It's made up of resistance $R$, the part that dissipates energy as heat, and reactance $X$, the part that stores and returns energy through capacitors and inductors, written as $Z = R + jX$. Unlike a plain resistor, capacitors and inductors shift the phase between voltage and current, and how much they oppose current depends on frequency instead of staying fixed. At DC the reactive part vanishes and impedance is just resistance. Part 2 will revisit this concept in further detail.
 
-When wiring a circuit, the thing to remember is that bare wires have resistance too, and that resistance causes a voltage drop and power dissipation along the length of the trace, usually called IR drop. The resistance of a wire or trace is given by the following relationship:
+When wiring a circuit, note that bare wires have resistance too, and that resistance causes a voltage drop and power dissipation along the length of the trace, usually called IR drop. The resistance of a wire or trace is given by the following relationship:
 
 ![](assets/wire_resistivity.jpg)
 
 On a small board carrying any real current, trace resistance can become a real problem.
- The important part is that a wire's cross-sectional area is inversely proportional to its resistance (and IR drop). The wider the trace, the less resistance it has, and the less it limits current. If you expect a lot of current, you must increase the width of your trace (the standard can be calculated using IPC-2221). 
+ The important part is that a wire's cross-sectional area is inversely proportional to its resistance (and IR drop). The wider the trace, the less resistance it has, and the less it limits current. If you expect a lot of current, you must increase the width of your trace (exactly how much can be calculated using the IPC-2221 standard). 
+
+**Additional resources**
+
+[Combining resistors](https://www.youtube.com/watch?v=s_Xinpu7QAU&list=PLVj6MdQ5TaaU-0PfmpqB7lxdYP-denj2G&index=10)
+
+[Power](https://www.youtube.com/watch?v=R1uiMv68vsw&list=PLVj6MdQ5TaaU-0PfmpqB7lxdYP-denj2G&index=5)
 
 #### Reading Question 1
 
-a.) What is the resistance $R$ of a circular wire of radius $1mm$ and length $1m$, given $\rho = 1$?
+a.) What is the resistance $R$ of a circular wire of radius $0.1mm$ and length $10m$, given $\rho = 1.68 \cdot 10^{-8} \Omega \cdot m$?
 
-b.) A $24V$ source drives a $2k\Omega$ resistor in series with two $1k\Omega$ resistors that are in parallel with each other. What is the equivalent resistance seen by the source, in $k\Omega$, and what current does the source supply?
+b.) In the following circuit, the same length and thickness of wire is used to connect a 3V source to a 100 $\Omega$ load represented by $R_L$. Find what percentage of the power is lost. (Hint: you can express the wire as a series resistor)
+
+![](assets/resistor_rq.png)
+---
+
 
 ### Capacitors
 
-A capacitor is two conductive plates separated by a thin insulating layer called a dielectric.
+A capacitor is two conductive plates separated by a thin insulating layer called a dielectric. 
 
 ![](assets/capacitor_diagram.png)
 
-Apply a voltage across the plates and charge accumulates on them, positive on one side and an equal amount of negative on the other, with the dielectric preventing the two from recombining directly. The amount of charge stored is
+Applying a voltage across the plates accumulates charge on them, creating the same voltage difference across the plates. We refer to this process as "charging the capacitor."
 
-$$\large{Q = CV}$$
+The relationship between charge and voltage is as follows:
+$$\large Q = C \cdot V$$
+C is the capacitor's capacitance, which is a constant value measured in Farads. Capacitance measures the capacitor's ability to store charge; a higher capacitance means more charge can be stored. 
 
-where $Q$ is the charge in Coulombs held at voltage $V$, and $C$ is the capacitance, a constant describing how much charge the capacitor holds per volt applied, measured in Farads.
+If we fully charge a capacitor and then disconnect the voltage source, the capacitor keeps its voltage, since the current has nowhere to flow.
+
+If we then attach a load, the current now has somewhere to flow, so the capacitor discharges. 
 
 Current through a capacitor follows
 
 $$\large I = C \cdot\frac{dV}{dt}$$
 
-which says a capacitor only draws or supplies current while the voltage across it is changing. At DC, a capacitor behaves like an open circuit.
+which says a capacitor only draws or supplies current while the voltage across it is changing. At DC, a capacitor behaves like an open circuit. 
 
 This principle is exactly why capacitors are used to smooth ripples and filter out noise. High frequency voltage spikes get shunted (shorted to ground) through the capacitor, while the slow, steady DC voltage passes by undisturbed. There are several types of capacitors with different strengths and drawbacks, which Part 2 gets into.
 
@@ -102,6 +122,20 @@ $$\large C_{eq} = C_1 + C_2 + ... + C_n$$
 In series, they combine the way resistors do in parallel:
 
 $$\large \frac{1}{C_{eq}} = \frac{1}{C_1} + \frac{1}{C_2} + ... + \frac{1}{C_n}$$
+
+#### Reading Question 2
+
+In the following RC circuit, the capacitor is charged fully by the 12V source. Then, the source is disconnected, and the capacitor discharges through the resistor. 
+
+![](assets/capacitor_rq.png)
+
+Real capacitors have an internal resistance (ESR), and they can be modeled as a resistor in series with the capacitor. 
+
+If we substituted the $1F$ capacitor with two $0.5F$ capacitors in parallel, would the efficiency of the circuit increase or decrease? 
+
+Use mathematical relationships to support your answer.
+
+---
 
 ### Inductors
 
@@ -122,7 +156,7 @@ $$\large L_{eq} = L_1 + L_2 + ... + L_n$$
 And in parallel:
 
 $$\large \frac{1}{L_{eq}} = \frac{1}{L_1} + \frac{1}{L_2} + ... + \frac{1}{L_n}$$
-
+---
 ### Diodes
 
 Diodes are semiconductors that allow current to flow in one direction (forward) and block it in the other (reverse). In the forward direction, no meaningful current flows until the voltage across the diode passes a threshold called $V_t$, or $V_f$, the forward voltage. The real current-voltage relationship is exponential rather than a hard on/off switch, but treating $V_t$ as a fixed threshold, commonly around $0.7V$ for silicon, is a good enough approximation for most design work.
@@ -133,13 +167,13 @@ There are several types of diodes worth knowing about now, in more depth later.
 
 **Zener diodes** have a reverse breakdown voltage $V_Z$ in addition to their forward voltage. In between the two regions, they block current like any other diode. You can think of them as a two-way diode with thresholds in both positive and negative voltages. That makes them useful for voltage regulation and clamping, and they still behave like a normal diode in the forward direction.
 
-**Schottky diodes** use different materials, which gives them a lower forward voltage (typically $0.2V$ to $0.3V$ instead of $0.7V$) and much faster switching. Both of those cut power loss, which is why they show up in high-frequency switching circuits like buck converters.
+**Schottky diodes** have a lower forward voltage (typically $0.2V$ to $0.3V$ instead of $0.7V$) and much faster switching. Both of those cut power loss, which is why they show up in high-frequency switching circuits like buck converters.
 
 **LEDs** (Light Emitting Diodes) emit light when forward current flows through them, with a $V_t$ that varies by color. They're often used as indicators for when a circuit is on. The brightness of an LED is approximately proportional to the current going through it.
 
 #### Diodes in practice
 
-Take this circuit with a battery, a resistor, and a diode in series. Assume $V_t = 0.7V$ and $R = 1k\Omega$.
+In this circuit with a battery, a resistor, and a diode in series, assume $V_t = 0.7V$ and $R = 1k\Omega$.
 
 ![](assets/diodes_example.png)
 
@@ -168,6 +202,7 @@ Passive elements are limited by maximum voltage and current values:
 - Capacitors have a maximum voltage, and exceeding it breaks down the dielectric, usually shorting the part. 
 - Inductors have a saturation current $I_{sat}$, past which its magnetic field cannot increase further and the inductance often collapses. 
 
+![](assets/breakdown.png)
 
 Because of all this, you must practice the principle of **derating**, which is just a fancy way to say, "design well below a part's absolute maximum rather than up against it." A common starting point is to pick capacitors rated for at least twice the working voltage and run resistors at half their power rating or less in steady state. The absolute maximum ratings table in a datasheet describes where the part is destroyed, not where you should aim. Even when approaching these maximum values, performance may already be heavily impacted. 
 
@@ -180,54 +215,59 @@ Real parts also carry parasitics (tiny resistive, capacitive, or inductive losse
 
 We will discuss how to design around these limitations later in this document.
 
+Finally, watch polarity. Diodes will break at large reverse-bias voltages, and electrolytic capacitors even at small reverse voltages. 
 
- Resistors and capacitors come in standard steps from the E-series ($1.0, 1.2, 1.5, 1.8, 2.2, 2.7, 3.3, \ldots$ and their decade multiples). When your math gives you something like $48k\Omega$, you either combine standard parts in series or parallel to get closer, or take the nearest standard value and check that the resulting error is acceptable. You'll do exactly this when picking the 555's timing resistors.
-
-Finally, watch polarity. Ceramic capacitors and resistors don't care which way around they go. Electrolytic capacitors and LEDs do, and reversing one either does nothing (LED) or destroys the part, sometimes loudly (electrolytic).
-
-
-
+---
 ### Symbols, packages, and footprints
 
-Every part shows up three times in the design flow, and it's worth keeping the three straight:
+Let's go over some common terminology for the different attributes of a part:
 
-- The **symbol** is the schematic drawing, and it's generic. One resistor symbol stands for every resistor.
-- The **package** is the physical body: its size, shape, and pin arrangement (0805, SOIC-8, DIP-8).
-- The **footprint** is the copper land pattern on the board that the package solders onto.
+- The **symbol** is the schematic figure/drawing and is often generic. There are sometimes variations in symbols (i.e. capacitors with/without polarity) but they are more or less generic.
 
-One symbol maps to many packages, so pick the package deliberately (can you hand-solder it? are you paying for assembly?) and then confirm the footprint matches the land pattern drawing in the datasheet. If pad pitch, hole diameter, or annular ring don't match, the part either won't fit or won't solder reliably, and you won't find out until the board is in front of you.
 
-Some parts use variant symbols to carry extra information, like the polarity mark on an electrolytic capacitor that a ceramic symbol doesn't have:
+- The **package** is the physical body: its size, shape, and pin arrangement. For example, the same chip can come in different packages. 
+
+
+- The **footprint** is the copper land pattern on the board that that directly corresponds to the shape of the package.
+
+One symbol maps to many packages, so pick the package deliberately (can you hand-solder it? are you paying for assembly?) and then confirm the footprint matches the land pattern drawing in the datasheet. If pad pitch, hole diameter, or annular ring don't match, the part either won't fit or won't solder reliably, and you won't find out until it's too late.
 
 ![](assets/symbol_package_variant_diagram.png)
 
-Packages come in two broad families. **Through-hole (THT)** parts have leads that pass through drilled holes and solder on the far side; they're easy to hand-solder but eat a lot of board area. **Surface-mount (SMD)** parts sit on pads on the surface. They're much smaller (0402, 0603, and 0805 refer to body size in hundredths of an inch), cheaper at volume, and progressively harder to hand-solder as they shrink.
+Packages come in two broad families. **Through-hole (THT)** parts have leads that pass through drilled holes and solder on the far side; they're easy to hand-solder but eat a lot of board area. **Surface-mount (SMD)** parts sit on pads on the surface. They're much smaller (0402, 0603, and 0805 refer to body size in hundredths of an inch), cheaper at volume, and progressively harder to hand-solder as they shrink. 
 
-**Integrated circuits** pack an entire designed and tested circuit into one package. They save you enormous amounts of work, at the cost of having to live with someone else's operating parameters and read their documentation carefully. Every IC has a fixed pinout, numbered counterclockwise from pin 1, which is marked by a dot or notch on the package. Unused pins are not automatically safe to ignore; the datasheet will tell you which ones to tie to $V_{CC}$ or ground, and floating an unused input is a good way to get unpredictable behavior.
+**Integrated circuits** pack an entire designed and tested circuit into one package. They save you enormous amounts of work, at the cost of having to design around the manufacturer's operating parameters and read their documentation carefully. We will be closely following an IC's datasheet for the design portion of this week's training.
 
 ![](assets/ic_diagram.png)
+
+---
 
 ### Reading a datasheet
 
 Datasheets are the most important documents in PCB design, and you should never read one cover to cover. Use the table of contents as an index and open only the sections you need:
 
-- **Pin configuration and pin functions** tells you what each pin does and what to connect it to.
-- **Recommended operating conditions** gives the voltage, current, and temperature ranges the part is designed for.
+- **Pin configuration and pin functions** tells you what each pin does and what to connect it to (other pins, power, or external components)
+- **Recommended operating conditions** gives the voltage, current, and temperature ranges the part is designed for. Remember to derate!
 - **Electrical characteristics** gives typical, minimum, and maximum values for things like threshold currents and output drive.
-- **Application circuits** are working reference topologies, often close enough to copy outright.
-- **Package and mechanical** has body dimensions, pin pitch, and the land pattern your footprint must match.
-- **Layout recommendations** cover decoupling placement and any pins that need special routing care.
-- **Absolute maximum ratings** are destruction limits. Never design to them.
+- **Application circuits** are reference circuits that can often be directly copied into your schematic.
+- **Package and mechanical** gives a detailed report of body dimensions, pin pitch, and the land pattern your footprint must match.
+- **Layout recommendations** cover decoupling placement and any pins that need special routing care. They are very important when making board-level decisions and can make or break your circuit.
 
-The project applies this to the LM555 specifically. The skill you're building here is knowing which section to open for a part you've never used before.
+---
 
 ### Schematic and layout
 
-A schematic is the logical diagram: which pin connects to which, drawn with symbols. It says nothing about position, trace width, or layer. A layout is the physical realization: where each footprint sits, how copper connects them, and whether the result can actually be manufactured. Both have to agree, and every net on the schematic has to end up as connected copper on the board.
+A schematic is the logical diagram of a circuit and only specifies electrical connections. It does not give any information on where or how those connections are made.
 
-Parts are identified by **reference designators** (`R1`, `C3`, `U1`, `LED1`), and electrical nodes by **net names** (`VCC`, `GND`, `TRIG`). Net names matter more than they look: two pins on opposite corners of a schematic carrying the same net label are electrically the same node, and the layout has to route them as one net even though no wire was drawn between them.
+Let's go over some common terminology for schematics:
 
-Each view gets its own automated check. **ERC** (Electrical Rule Check) runs on the schematic and catches unconnected pins, conflicting drivers, and missing power connections. **DRC** (Design Rule Check) runs on the layout and checks trace width, spacing, drill sizes, and annular rings against what the fabricator can build. Passing DRC means the board can be manufactured. It says nothing about whether the circuit works.
+- A net is simply a node and represents a contiguous electrical connection. They are identified by a unique name (net label).
+- Power symbols like VCC/VDD and GND/VSS are also nets.
+- Each part is accompanied by a reference designator with the abbreviation for the part and a number (e.g. R1, C2, L1). 
+
+---
+WIP
+---
 
 #### A small worked example
 
